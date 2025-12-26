@@ -1,0 +1,2116 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SERVERS - نسختين</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <style>
+  .angry-grid {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 1px;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+    border-bottom: 1px solid #fff;
+  }
+
+  .angry-grid a.active {
+    border: 2px solid red;
+  }
+
+  .tab-pane {
+    display: none;
+  }
+
+  .tab-pane.active {
+    display: block;
+  }
+
+  [id*="wwc_room_item_"]:hover {
+    background-color: yellow;
+    color: black;
+  }
+
+  [id*="wwc_room_item_"] a:hover {
+    color: black;
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 15px;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.88);
+    -webkit-animation-duration: 0.35s;
+    animation-duration: 0.35s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    /* Modifiers */
+    /* States */
+  }
+
+  .modal__dialog {
+    position: relative;
+    max-width: 500px;
+    padding: 20px;
+    margin: auto;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+
+  .modal__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 0;
+    border: none;
+    color: #ccc;
+    background-color: transparent;
+    background-image: none;
+  }
+
+  .modal__close:focus {
+    outline: 0;
+  }
+
+  .modal__header {
+    border-bottom: 1px solid #e2e2e2;
+  }
+
+  .modal__title {
+    margin: 0 0 15px;
+  }
+
+  .modal__content {
+    padding: 10px 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #555;
+  }
+
+  .modal__footer {
+    padding-top: 20px;
+    border-top: 1px solid #e2e2e2;
+    text-align: right;
+  }
+
+  .modal--fullscreen {
+    padding: 5px;
+  }
+
+  .modal--fullscreen .modal__dialog {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .modal.is-modal-active {
+    display: flex;
+  }
+
+  .apoio-aqui {
+    display: flex;
+    align-content: center;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 8px;
+  }
+
+  .sprite {
+    background-image: url(https://asserts.wormworld.io/images/flags_region.png);
+    background-repeat: no-repeat;
+    background-size: 135px 120px;
+    display: block;
+    margin: 6px 0;
+  }
+
+  .sprite-ae-flag {
+    width: 40px;
+    height: 25px;
+    background-position: -3px -4px;
+  }
+
+  .sprite-au-flag {
+    width: 40px;
+    height: 25px;
+    background-position: -48px -3px;
+  }
+
+  .sprite-br-flag {
+    width: 40px;
+    height: 25px;
+    background-position: -2px -33px;
+  }
+
+  .sprite-ca-flag {
+    width: 40px;
+    height: 25px;
+    background-position: -48px -33px;
+  }
+
+  .sprite-fr-flag {
+    width: 40px;
+    height: 25px;
+    background-position: -2px -62px;
+  }
+
+  .sprite-de-flag {
+    width: 40px;
+    height: 25px;
+    background-position: -48px -62px;
+  }
+
+  .sprite-jp-flag {
+    width: 40px;
+    height: 25px;
+    background-position: -48px -92px;
+  }
+
+  .sprite-mx-flag {
+    width: 40px;
+    height: 25px;
+    background-position: -92px -3px;
+  }
+
+  .sprite-sg-flag {
+    width: 40px;
+    height: 25px;
+    background-position: -92px -33px;
+  }
+
+  .sprite-uk-flag {
+    width: 40px;
+    height: 25px;
+    background-position: -92px -92px;
+  }
+
+  .sprite-us-flag {
+    width: 40px;
+    height: 25px;
+    background-position: -92px -92px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- زر التبديل بين النسختين -->
+  <div class="version-switcher">
+    <button id="version-1-btn" class="version-btn active">اداة قديمة</button>
+    <button id="version-2-btn" class="version-btn">tim map</button>
+  </div>
+
+  <!-- اداة قديمة من المحتوى -->
+  <div id="content-version-1" class="content-version active">
+    <div style="height: 285px; overflow: auto; border: 1px solid; margin: 6px auto" id="wwc_tabs_1">
+      <div class="angry-grid f32">
+        <a href="#tabs4_1" id="linktab_4_1" class="active"><i class="sprite sprite-de-flag"></i></a>
+        <a href="#tabs9_1" id="linktab_9_1"><i class="sprite sprite-ae-flag"></i></a>
+        <a href="#tabs0_1" id="linktab_0_1"><i class="sprite sprite-br-flag"></i></a>
+        <a href="#tabs1_1" id="linktab_1_1"><i class="sprite sprite-us-flag"></i></a>
+        <a href="#tabs2_1" id="linktab_2_1"><i class="sprite sprite-ca-flag"></i></a>
+        <a href="#tabs5_1" id="linktab_5_1"><i class="sprite sprite-fr-flag"></i></a>
+        <a href="#tabs3_1" id="linktab_3_1"><i class="sprite sprite-mx-flag"></i></a>
+        <a href="#tabs6_1" id="linktab_6_1"><i class="sprite sprite-sg-flag"></i></a>
+        <a href="#tabs7_1" id="linktab_7_1"><i class="sprite sprite-jp-flag"></i></a>
+        <a href="#tabs8_1" id="linktab_8_1"><i class="sprite sprite-au-flag"></i></a>
+      </div>
+
+      <!-- تبويبات النسخة الأولى -->
+      <div class="tab-pane" id="tabs0_1">
+        <!-- محتوى البرازيل -->
+        <div id="wwc_room_item_1" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32017/wormy" data-room="1br" data-type="false">
+            <strong>01 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_2" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32053/wormy" data-room="2br" data-type="false">
+            <strong>02 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_3" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32285/wormy" data-room="3br" data-type="false">
+            <strong>03 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_4" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32609/wormy" data-room="4br" data-type="false">
+            <strong>04 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_5" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32103/wormy" data-room="5br" data-type="false">
+            <strong>05 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_6" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32064/wormy" data-room="6br" data-type="false">
+            <strong>06 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_7" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31965/wormy" data-room="7br" data-type="false">
+            <strong>07 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_8" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32026/wormy" data-room="8br" data-type="false">
+            <strong>08 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_9" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32095/wormy" data-room="9br" data-type="false">
+            <strong>09 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_10" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32584/wormy" data-room="10br" data-type="false">
+            <strong>10 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_11" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32708/wormy" data-room="11br" data-type="false">
+            <strong>11 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_12" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32044/wormy" data-room="12br" data-type="false">
+            <strong>12 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_13" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31050/wormy" data-room="13br" data-type="false">
+            <strong>13 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tabs1_1">
+        <!-- محتوى الولايات المتحدة -->
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32262/wormy" data-room="1us" data-type="false">
+            <strong>01 &nbsp; UA </strong>
+          </div>
+          <a href="https://www.tiktok.com" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32053/wormy" data-room="2us" data-type="false">
+            <strong>02 &nbsp;UA </strong>
+          </div>
+          <a href="https://www.tiktok.com/" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32103/wormy" data-room="3us" data-type="false">
+            <strong>03 &nbsp;UA</strong>
+          </div>
+          <a href="https://www.tiktok.com/" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32609/wormy" data-room="4us" data-type="false">
+            <strong>04 &nbsp; UA</strong>
+          </div>
+          <a href="https://www.tiktok.com/" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32064/wormy" data-room="5us" data-type="false">
+            <strong>05 &nbsp;UA</strong>
+          </div>
+          <a href="https://www.tiktok.com/" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31965/wormy" data-room="6us" data-type="false">
+            <strong>06 &nbsp;UA </strong>
+          </div>
+          <a href="https://www.tiktok.com/" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32095/wormy" data-room="7us" data-type="false">
+            <strong>07 &nbsp;UA </strong>
+          </div>
+          <a href="https://www.tiktok.com/" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32026/wormy" data-room="8us" data-type="false">
+            <strong>08 &nbsp;UA </strong>
+          </div>
+          <a href="https://www.tiktok.com/" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32285/wormy" data-room="9us" data-type="false">
+            <strong>09 &nbsp;UA </strong>
+          </div>
+          <a href="https://www.tiktok.com/" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tabs2_1">
+        <!-- محتوى كندا -->
+        <div id="wwc_room_item_1" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32053/wormy" data-room="1ca" data-type="false">
+            <strong>01 &nbsp;SUP TANNER GAMING</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/TEAM_SUP_TANER.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_2" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31050/wormy" data-room="2ca" data-type="false">
+            <strong>02 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_3" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32584/wormy" data-room="3ca" data-type="false">
+            <strong>03 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_4" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32708/wormy" data-room="4ca" data-type="false">
+            <strong>04 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_5" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32044/wormy" data-room="5ca" data-type="false">
+            <strong>05 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_6" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32609/wormy" data-room="6ca" data-type="false">
+            <strong>06 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_7" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32103/wormy" data-room="7ca" data-type="false">
+            <strong>07 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_8" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32064/wormy" data-room="8ca" data-type="false">
+            <strong>08 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_9" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31965/wormy" data-room="9ca" data-type="false">
+            <strong>09 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_10" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32017/wormy" data-room="10ca" data-type="false">
+            <strong>10 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_11" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32095/wormy" data-room="11ca" data-type="false">
+            <strong>11 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tabs3_1">
+        <!-- محتوى المكسيك -->
+        <div id="wwc_room_item_1" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31050/wormy" data-room="1mx" data-type="false">
+            <strong>01 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_2" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32053/wormy" data-room="2mx" data-type="false">
+            <strong>02 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_3" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32609/wormy" data-room="3mx" data-type="false">
+            <strong>03 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_4" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32103/wormy" data-room="4mx" data-type="false">
+            <strong>04 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_5" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32064/wormy" data-room="5mx" data-type="false">
+            <strong>05 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_6" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31965/wormy" data-room="6mx" data-type="false">
+            <strong>06 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_7" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32026/wormy" data-room="7mx" data-type="false">
+            <strong>07 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_8" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32095/wormy" data-room="8mx" data-type="false">
+            <strong>08 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tabs4_1" style="display:block">
+        <!-- محتوى ألمانيا -->
+        <div id="wwc_room_item_1" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31965/wormy" data-room="1de" data-type="false">
+            <strong>01 &nbsp;𝐻𝒜𝑅𝒜𝑀 </strong>
+          </div>
+          <a href="https://www.tiktok.com/@haram103" target="_blank">
+            <img src="https://i.imgur.com/v2YPljB.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_2" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32053/wormy" data-room="2de" data-type="false">
+            <strong>02 &nbsp;𝐃𝑼𝐊𝐓𝐎𝐑</strong>
+          </div>
+          <a href="https://www.tiktok.com/@duktor_up?lang=en" target="_blank">
+            <img src="https://asserts.wormworld.io/rooms/TEM_TIKDUKTOR.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_3" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32103/wormy" data-room="3de" data-type="false">
+            <strong>03 &nbsp;𝐻𝒜𝑅𝒜𝑀/strong>
+          </div>
+          <a href="https://www.tiktok.com/@sb.ax?_t=8pX4L82Qbej&amp;_r=1" target="_blank">
+            <img src="https://i.imgur.com/v2YPljB.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_4" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32609/wormy" data-room="4de" data-type="false">
+            <strong>04 &nbsp;SAMSON</strong>
+          </div>
+          <a href="https://www.tiktok.com/@samsonshow.no?_t=8kSYv8Q9B9K&amp;_r=1" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_SAMSOM.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_5" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32064/wormy" data-room="5de" data-type="false">
+            <strong>05 &nbsp;TAKTIK</strong>
+          </div>
+          <a href="https://www.tiktok.com/@taktiksavasi?_t=8pTbWcGfkBd&amp;_r=1" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_TAKTIKLER.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_6" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32285/wormy" data-room="6de" data-type="false">
+            <strong>06 &nbsp;MERVO GAMING 101</strong>
+          </div>
+          <a href="https://www.tiktok.com/@mervogaming?_t=ZN-8xrU2nrEVks&amp;_r=1" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_MERVO.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_7" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31050/wormy" data-room="7de" data-type="false">
+            <strong>07 &nbsp;FADLSHAKER</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEMA_FADELSHAKER.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_8" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32584/wormy" data-room="8de" data-type="false">
+            <strong>08 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_9" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32708/wormy" data-room="9de" data-type="false">
+            <strong>09 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_10" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32044/wormy" data-room="10de" data-type="false">
+            <strong>10 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_11" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32026/wormy" data-room="11de" data-type="false">
+            <strong>11 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_12" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32017/wormy" data-room="12de" data-type="false">
+            <strong>12 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_13" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32095/wormy" data-room="13de" data-type="false">
+            <strong>13 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_14" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31050/wormy" data-room="14de" data-type="false">
+            <strong>14 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tabs5_1">
+        <!-- محتوى فرنسا -->
+        <div id="wwc_room_item_1" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32053/wormy" data-room="1fr" data-type="false">
+            <strong>01 &nbsp;FDZ 🦊 MINOU 🦊</strong>
+          </div>
+          <a href="https://vt.tiktok.com/ZS24gWd3U/" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_MINOU.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_2" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://gra-a.wormate.io:32064/wormy" data-room="2fr" data-type="false">
+            <strong>02 &nbsp;El ARASAL GAMING</strong>
+          </div>
+          <a href="https://www.facebook.com/share/156X8D7so2/?mibextid=LQQJ4d" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_ARA.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_3" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31965/wormy" data-room="3fr" data-type="false">
+            <strong>03 &nbsp;𝑨𝑳𝑨𝑹𝑨𝑩 💯𝑨𝑹𝑩</strong>
+          </div>
+          <a href="https://vm.tiktok.com/ZGeWreN3P/" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_ARB.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_4" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32609/wormy" data-room="4fr" data-type="false">
+            <strong>04 &nbsp;اردني جلاد الشباشب</strong>
+          </div>
+          <a href="https://www.tiktok.com/@user2924620842315?_t=ZS-8xruq2rHvAl&amp;_r=1" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_PALE.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_5" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32103/wormy" data-room="5fr" data-type="false">
+            <strong>05 &nbsp;🅱️𝕁𝕝𝕘𝕛𝕛𝕛</strong>
+          </div>
+          <a href="https://www.tiktok.com/@shoareb?_t=ZS-8wuIyZ7FWb4&amp;_r=1" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_BJ.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_6" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32285/wormy" data-room="6fr" data-type="false">
+            <strong>06 &nbsp;BaZoOkA°•°IP✅</strong>
+          </div>
+          <a href="https://www.tiktok.com/@tik.bazooka.ip?_t=ZM-8xdTzxjlqQn&amp;_r=1" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_BAZOOKA.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_7" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32584/wormy" data-room="7fr" data-type="false">
+            <strong>07 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_8" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32708/wormy" data-room="8fr" data-type="false">
+            <strong>08 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_9" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32044/wormy" data-room="9fr" data-type="false">
+            <strong>09 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_10" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32026/wormy" data-room="10fr" data-type="false">
+            <strong>10 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_11" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32095/wormy" data-room="11fr" data-type="false">
+            <strong>11 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tabs6_1">
+        <!-- محتوى سنغافورة -->
+        <div id="wwc_room_item_1" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32053/wormy" data-room="1sg" data-type="false">
+            <strong>01 &nbsp;AMG</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_AMG.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_2" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32103/wormy" data-room="2sg" data-type="false">
+            <strong>02 &nbsp;AZ FAMILY</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_AZFAMILY.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_3" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32609/wormy" data-room="3sg" data-type="false">
+            <strong>03 &nbsp;Kẹo Ngọt</strong>
+          </div>
+          <a href="https://www.facebook.com/groups/familykeongot/?ref=share" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/sala_24.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_4" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31050/wormy" data-room="4sg" data-type="false">
+            <strong>04 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_5" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32584/wormy" data-room="5sg" data-type="false">
+            <strong>05 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_6" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32708/wormy" data-room="6sg" data-type="false">
+            <strong>06 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_7" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32044/wormy" data-room="7sg" data-type="false">
+            <strong>07 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_8" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32017/wormy" data-room="8sg" data-type="false">
+            <strong>08 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_9" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32285/wormy" data-room="9sg" data-type="false">
+            <strong>09 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_10" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32064/wormy" data-room="10sg" data-type="false">
+            <strong>10 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_11" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31965/wormy" data-room="11sg" data-type="false">
+            <strong>11 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_12" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32026/wormy" data-room="12sg" data-type="false">
+            <strong>12 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tabs7_1">
+        <!-- محتوى اليابان -->
+        <div id="wwc_room_item_1" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31050/wormy" data-room="1jp" data-type="false">
+            <strong>01 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_2" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32584/wormy" data-room="2jp" data-type="false">
+            <strong>02 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_3" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32708/wormy" data-room="3jp" data-type="false">
+            <strong>03 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_4" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32044/wormy" data-room="4jp" data-type="false">
+            <strong>04 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_5" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32053/wormy" data-room="5jp" data-type="false">
+            <strong>05 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_6" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32609/wormy" data-room="6jp" data-type="false">
+            <strong>06 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_7" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32103/wormy" data-room="7jp" data-type="false">
+            <strong>07 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_8" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32064/wormy" data-room="8jp" data-type="false">
+            <strong>08 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_9" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31965/wormy" data-room="9jp" data-type="false">
+            <strong>09 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_10" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32026/wormy" data-room="10jp" data-type="false">
+            <strong>10 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_11" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32017/wormy" data-room="11jp" data-type="false">
+            <strong>11 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_12" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32095/wormy" data-room="12jp" data-type="false">
+            <strong>12 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tabs8_1">
+        <!-- محتوى أستراليا -->
+        <div id="wwc_room_item_1" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31050/wormy" data-room="1au" data-type="false">
+            <strong>01 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_2" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32053/wormy" data-room="2au" data-type="false">
+            <strong>02 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_3" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32103/wormy" data-room="3au" data-type="false">
+            <strong>03 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_4" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32609/wormy" data-room="4au" data-type="false">
+            <strong>04 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_5" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31965/wormy" data-room="5au" data-type="false">
+            <strong>05 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_6" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32026/wormy" data-room="6au" data-type="false">
+            <strong>06 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_7" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32095/wormy" data-room="7au" data-type="false">
+            <strong>07 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_8" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32064/wormy" data-room="8au" data-type="false">
+            <strong>08 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tabs9_1">
+        <!-- محتوى الإمارات -->
+        <div id="wwc_room_item_1" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32053/wormy" data-room="1ae" data-type="false">
+            <strong>01 &nbsp;FIRE@YT🔥</strong>
+          </div>
+          <a href="https://www.tiktok.com/@pindi__gaming?_t=ZS-8vkfCZjWmDo&amp;_r=1" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_FIRE.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_2" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32609/wormy" data-room="2ae" data-type="false">
+            <strong>02 &nbsp;ABOARQAN</strong>
+          </div>
+          <a href="https://www.tiktok.com/@aboarqan?_t=8rVSBGscPqS&amp;_r=1" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_ABOARQAN  (2).png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_3" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://dxb-a.wormate.io:32103/wormy" data-room="3ae" data-type="false">
+            <strong>03 &nbsp;༄●⃝ᶫꪜᴳᴬᴹᴵᴺᴳ×͜ㅤ❼❼</strong>
+          </div>
+          <a href="https://www.tiktok.com/@lv.gaming.77?_t=ZS-8wNtZuzVAaG&amp;_r=1" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_77.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_4" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://dxb-a.wormate.io:32064/wormy" data-room="4ae" data-type="false">
+            <strong>04 &nbsp;QASIM GAMING</strong>
+          </div>
+          <a href="https://www.tiktok.com/@qasimgamingfb2.0?_t=8lAYlftxJAx&amp;_r=1" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_QASIM.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_5" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://dxb-a.wormate.io:31965/wormy" data-room="5ae" data-type="false">
+            <strong>05 &nbsp;COLL@YT🥶</strong>
+          </div>
+          <a href="https://www.tiktok.com/@pindigamingi?_t=8qNR0b929dI&amp;_r=1" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_COLLY.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_6" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://dxb-a.wormate.io:32026/wormy" data-room="6ae" data-type="false">
+            <strong>06 &nbsp;SHERAZ</strong>
+          </div>
+          <a href="https://www.tiktok.com/@sheraz__saeed?_t=ZS-8vih1QZdmWG&amp;_r=1" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_SHERAZ.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_7" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://dxb-a.wormate.io:32262/wormy" data-room="7ae" data-type="false">
+            <strong>07 &nbsp;JOGOS ALI</strong>
+          </div>
+          <a href="https://youtube.com/@aligaming_wormateio?si=FqyjYm8V0E24OYcR" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_ALIGAMER.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_8" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://dxb-a.wormate.io:32095/wormy" data-room="8ae" data-type="false">
+            <strong>08 &nbsp;AFG 💀AZIZI 💀YT</strong>
+          </div>
+          <a href="https://www.tiktok.com/@azizigaming8" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_AZIZI.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_9" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31050/wormy" data-room="9ae" data-type="false">
+            <strong>09 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_10" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32584/wormy" data-room="10ae" data-type="false">
+            <strong>10 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_11" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32708/wormy" data-room="11ae" data-type="false">
+            <strong>11 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_12" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32044/wormy" data-room="12ae" data-type="false">
+            <strong>12 &nbsp;WW new</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_13" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32017/wormy" data-room="13ae" data-type="false">
+            <strong>13 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_14" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32285/wormy" data-room="14ae" data-type="false">
+            <strong>14 &nbsp;WW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/favicon128x128.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- tim map من المحتوى -->
+  <div id="content-version-2" class="content-version" style="display:none">
+    <div style="height: 285px; overflow: auto; border: 1px solid; margin: 6px auto" id="wwc_tabs_2">
+      <div class="angry-grid f32">
+        <a href="#tabs4_2" id="linktab_4_2" class="active"><i class="sprite sprite-de-flag"></i></a>
+        <a href="#tabs9_2" id="linktab_9_2"><i class="sprite sprite-ae-flag"></i></a>
+        <a href="#tabs0_2" id="linktab_0_2"><i class="sprite sprite-br-flag"></i></a>
+        <a href="#tabs1_2" id="linktab_1_2"><i class="sprite sprite-us-flag"></i></a>
+        <a href="#tabs2_2" id="linktab_2_2"><i class="sprite sprite-ca-flag"></i></a>
+        <a href="#tabs5_2" id="linktab_5_2"><i class="sprite sprite-fr-flag"></i></a>
+        <a href="#tabs3_2" id="linktab_3_2"><i class="sprite sprite-mx-flag"></i></a>
+        <a href="#tabs6_2" id="linktab_6_2"><i class="sprite sprite-sg-flag"></i></a>
+        <a href="#tabs7_2" id="linktab_7_2"><i class="sprite sprite-jp-flag"></i></a>
+        <a href="#tabs8_2" id="linktab_8_2"><i class="sprite sprite-au-flag"></i></a>
+      </div>
+
+      <!-- تبويبات النسخة الثانية -->
+      <div class="tab-pane" id="tabs0_2">
+        <!-- محتوى البرازيل -->
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32053/wormy" data-room="1br_v2" data-type="false">
+            <strong>01 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32285/wormy" data-room="2br_v2" data-type="false">
+            <strong>02 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32708/wormy" data-room="3br_v2" data-type="false">
+            <strong>03 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32044/wormy" data-room="4br_v2" data-type="false">
+            <strong>04 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32017/wormy" data-room="5br_v2" data-type="false">
+            <strong>05 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32095/wormy" data-room="6br_v2" data-type="false">
+            <strong>06 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31050/wormy" data-room="7br_v2" data-type="false">
+            <strong>07 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32064/wormy" data-room="8br_v2" data-type="false">
+            <strong>08 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31965/wormy" data-room="9br_v2" data-type="false">
+            <strong>09 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32584/wormy" data-room="10br_v2" data-type="false">
+            <strong>10 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32708/wormy" data-room="11br_v2" data-type="false">
+            <strong>11 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32044/wormy" data-room="12br_v2" data-type="false">
+            <strong>12 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31050/wormy" data-room="13br_v2" data-type="false">
+            <strong>13 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tabs1_2">
+        <!-- محتوى الولايات المتحدة -->
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32262/wormy" data-room="1us_v2" data-type="false">
+            <strong>01 &nbsp;[AG] AguzGamer - tim map</strong>
+          </div>
+          <a href="https://wormworld.io/team/aguz-gamer/" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/sala_45.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32053/wormy" data-room="2us_v2" data-type="false">
+            <strong>02 &nbsp;UA - tim map</strong>
+          </div>
+          <a href="https://www.tiktok.com/" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32103/wormy" data-room="3us_v2" data-type="false">
+            <strong>03 &nbsp;UA - tim map</strong>
+          </div>
+          <a href="https://www.tiktok.com/" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32609/wormy" data-room="4us_v2" data-type="false">
+            <strong>04 &nbsp;UA - tim map</strong>
+          </div>
+          <a href="https://www.tiktok.com/" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32064/wormy" data-room="5us_v2" data-type="false">
+            <strong>05 &nbsp;UA - tim map</strong>
+          </div>
+          <a href="https://www.tiktok.com/" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31965/wormy" data-room="6us_v2" data-type="false">
+            <strong>06 &nbsp;UA - tim map</strong>
+          </div>
+          <a href="https://www.tiktok.com/" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32095/wormy" data-room="7us_v2" data-type="false">
+            <strong>07 &nbsp;UA - tim map</strong>
+          </div>
+          <a href="https://www.tiktok.com/" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32026/wormy" data-room="8us_v2" data-type="false">
+            <strong>08 &nbsp;UA - tim map</strong>
+          </div>
+          <a href="https://www.tiktok.com/" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32285/wormy" data-room="9us_v2" data-type="false">
+            <strong>09 &nbsp;UA - tim map</strong>
+          </div>
+          <a href="https://www.tiktok.com/" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tabs2_2">
+        <!-- محتوى كندا -->
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32053/wormy" data-room="1ca_v2" data-type="false">
+            <strong>01 &nbsp;SUP TANNER GAMING - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_SUP_TANER.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31050/wormy" data-room="2ca_v2" data-type="false">
+            <strong>02 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32584/wormy" data-room="3ca_v2" data-type="false">
+            <strong>03 &nbsp;WW new - tim map</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32708/wormy" data-room="4ca_v2" data-type="false">
+            <strong>04 &nbsp;WW new - tim map</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32044/wormy" data-room="5ca_v2" data-type="false">
+            <strong>05 &nbsp;WW new - tim map</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32609/wormy" data-room="6ca_v2" data-type="false">
+            <strong>06 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32103/wormy" data-room="7ca_v2" data-type="false">
+            <strong>07 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32064/wormy" data-room="8ca_v2" data-type="false">
+            <strong>08 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31965/wormy" data-room="9ca_v2" data-type="false">
+            <strong>09 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32017/wormy" data-room="10ca_v2" data-type="false">
+            <strong>10 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32095/wormy" data-room="11ca_v2" data-type="false">
+            <strong>11 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tabs3_2">
+        <!-- محتوى المكسيك -->
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31050/wormy" data-room="1mx_v2" data-type="false">
+            <strong>01 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32053/wormy" data-room="2mx_v2" data-type="false">
+            <strong>02 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32609/wormy" data-room="3mx_v2" data-type="false">
+            <strong>03 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32103/wormy" data-room="4mx_v2" data-type="false">
+            <strong>04 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32064/wormy" data-room="5mx_v2" data-type="false">
+            <strong>05 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31965/wormy" data-room="6mx_v2" data-type="false">
+            <strong>06 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32026/wormy" data-room="7mx_v2" data-type="false">
+            <strong>07 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32095/wormy" data-room="8mx_v2" data-type="false">
+            <strong>08 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tabs4_2" style="display:block">
+        <!-- محتوى ألمانيا -->
+        <div id="wwc_room_item_1" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32053/wormy" data-room="1de_v2" data-type="false">
+            <strong>01 &nbsp;SAIF 🟢</strong>
+          </div>
+          <a href="https://www.tiktok.com" target="_blank">
+            <img src="https://i.imgur.com/yX6j6AG.jpeg" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_2" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32609/wormy" data-room="2de_v2" data-type="false">
+            <strong>02 &nbsp;𝒜bdessalam ️ 🟢</strong>
+          </div>
+          <a href="https://www.tiktok.com/" target="_blank">
+            <img src="https://wormup.in/api/servers/images/67d2335723034.jpeg" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_3" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32103/wormy" data-room="3de_v2" data-type="false">
+            <strong>03 &nbsp;𝐑𝐀𝐘𝐀𝐍 🟢</strong>
+          </div>
+          <a href="https://www.tiktok.com/" target="_blank">
+            <img src="https://wormup.in/api/servers/images/67d233d8bb946.jpeg" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_4" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32064/wormy" data-room="4de_v2" data-type="false">
+            <strong>04 &nbsp;𝐀𝐎𝐓𝐎 | أوتو 🟢</strong>
+          </div>
+          <a href="https://www.tiktok.com/" target="_blank">
+            <img src="https://wormup.in/api/servers/images/67d2339956a63.jpeg" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_5" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32708/wormy" data-room="5de_v2" data-type="false">
+            <strong>05 &nbsp;tik 𓌹 𝙆𝘼𝙄𝙈 ✗</strong>
+          </div>
+          <a href="https://www.tiktok.com/" target="_blank">
+            <img src="https://wormup.in/api/servers/images/67fc7eba87a65.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_6" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32285/wormy" data-room="6de_v2" data-type="false">
+            <strong>06 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_7" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32285/wormy" data-room="7de_v2" data-type="false">
+            <strong>07 &nbsp;Sherwani 🟢</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://wormup.in/api/servers/images/67fc7dd9c0ff6.jpg" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_8" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32262/wormy" data-room="8de_v2" data-type="false">
+            <strong>08 &nbsp;SCC</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_9" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32095/wormy" data-room="9de_v2" data-type="false">
+            <strong>10 &nbsp;Moath UP 🟢</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://wormup.in/api/servers/images/67d22e0d6c4b9.jpeg" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tabs5_2">
+        <!-- محتوى فرنسا -->
+        <div id="wwc_room_item_1" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32262/wormy" data-room="1fr_v2" data-type="false">
+            <strong>22 &nbsp;22 SG 🟢</strong>
+          </div>
+          <a href="https://vt.tiktok.com/ZS24gWd3U/" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_2" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32103/wormy" data-room="2fr_v2" data-type="false">
+            <strong>23 &nbsp;23 SG 🟢</strong>
+          </div>
+          <a href="https://www.facebook.com/" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_3" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32103/wormy" data-room="3fr_v2" data-type="false">
+            <strong>24 &nbsp;24 SG 🟢</strong>
+          </div>
+          <a href="https://vm.tiktok.com/" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_4" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32285/wormy" data-room="4fr_v2" data-type="false">
+            <strong>27 &nbsp;27 SG 🟢</strong>
+          </div>
+          <a href="https://www.tiktok.com" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_5" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32095/wormy" data-room="5fr_v2" data-type="false">
+            <strong>30 &nbsp;30 SG 🟢</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_6" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32017/wormy" data-room="6fr_v2" data-type="false">
+            <strong>9 &nbsp;NEW</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_7" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32026/wormy" data-room="7fr_v2" data-type="false">
+            <strong>07 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_8" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32262/wormy" data-room="8fr_v2" data-type="false">
+            <strong>08 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_9" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32095/wormy" data-room="9fr_v2" data-type="false">
+            <strong>09 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tabs6_2">
+        <!-- محتوى سنغافورة -->
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32053/wormy" data-room="1sg_v2" data-type="false">
+            <strong>01 &nbsp;AMG - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_AMG.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32103/wormy" data-room="2sg_v2" data-type="false">
+            <strong>02 &nbsp;AZ FAMILY - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_AZFAMILY.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32609/wormy" data-room="3sg_v2" data-type="false">
+            <strong>03 &nbsp;Kẹo Ngọt - tim map</strong>
+          </div>
+          <a href="https://www.facebook.com/groups/familykeongot/?ref=share" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/sala_24.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31050/wormy" data-room="4sg_v2" data-type="false">
+            <strong>04 &nbsp;WW new - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32584/wormy" data-room="5sg_v2" data-type="false">
+            <strong>05 &nbsp;WW new - tim map</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32708/wormy" data-room="6sg_v2" data-type="false">
+            <strong>06 &nbsp;WW new - tim map</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32044/wormy" data-room="7sg_v2" data-type="false">
+            <strong>07 &nbsp;WW new - tim map</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32017/wormy" data-room="8sg_v2" data-type="false">
+            <strong>08 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32285/wormy" data-room="9sg_v2" data-type="false">
+            <strong>09 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32064/wormy" data-room="10sg_v2" data-type="false">
+            <strong>10 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31965/wormy" data-room="11sg_v2" data-type="false">
+            <strong>11 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32026/wormy" data-room="12sg_v2" data-type="false">
+            <strong>12 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tabs7_2">
+        <!-- محتوى اليابان -->
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31050/wormy" data-room="1jp_v2" data-type="false">
+            <strong>01 &nbsp;WW new - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32584/wormy" data-room="2jp_v2" data-type="false">
+            <strong>02 &nbsp;WW new - tim map</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32708/wormy" data-room="3jp_v2" data-type="false">
+            <strong>03 &nbsp;WW new - tim map</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32044/wormy" data-room="4jp_v2" data-type="false">
+            <strong>04 &nbsp;WW new - tim map</strong>
+          </div>
+          <a href="https://wormworld.io/active" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32053/wormy" data-room="5jp_v2" data-type="false">
+            <strong>05 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32609/wormy" data-room="6jp_v2" data-type="false">
+            <strong>06 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32103/wormy" data-room="7jp_v2" data-type="false">
+            <strong>07 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32064/wormy" data-room="8jp_v2" data-type="false">
+            <strong>08 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31965/wormy" data-room="9jp_v2" data-type="false">
+            <strong>09 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32026/wormy" data-room="10jp_v2" data-type="false">
+            <strong>10 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32017/wormy" data-room="11jp_v2" data-type="false">
+            <strong>11 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32095/wormy" data-room="12jp_v2" data-type="false">
+            <strong>12 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tabs8_2">
+        <!-- محتوى أستراليا -->
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31050/wormy" data-room="1au_v2" data-type="false">
+            <strong>01 &nbsp;WW new - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32053/wormy" data-room="2au_v2" data-type="false">
+            <strong>02 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32103/wormy" data-room="3au_v2" data-type="false">
+            <strong>03 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32609/wormy" data-room="4au_v2" data-type="false">
+            <strong>04 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:31965/wormy" data-room="5au_v2" data-type="false">
+            <strong>05 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32026/wormy" data-room="6au_v2" data-type="false">
+            <strong>06 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32095/wormy" data-room="7au_v2" data-type="false">
+            <strong>07 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32064/wormy" data-room="8au_v2" data-type="false">
+            <strong>08 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tabs9_2">
+        <!-- محتوى الإمارات -->
+        <div id="wwc_room_item_1" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32053/wormy" data-room="1ae_v2" data-type="false">
+            <strong>01 &nbsp;FIRE@YT🔥 - tim map</strong>
+          </div>
+          <a href="https://www.tiktok.com/@pindi__gaming?_t=ZS-8vkfCZjWmDo&amp;_r=1" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_FIRE.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_2" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32609/wormy" data-room="2ae_v2" data-type="false">
+            <strong>02 &nbsp;ABOARQAN - tim map</strong>
+          </div>
+          <a href="https://www.tiktok.com/@aboarqan?_t=8rVSBGscPqS&amp;_r=1" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_ABOARQAN  (2).png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_3" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://dxb-a.wormate.io:32103/wormy" data-room="3ae_v2" data-type="false">
+            <strong>03 &nbsp;༄●⃝ᶫꪜᴳᴬᴹᴵᴺᴳ×͜ㅤ❼❼ - tim map</strong>
+          </div>
+          <a href="https://www.tiktok.com/@lv.gaming.77?_t=ZS-8wNtZuzVAaG&amp;_r=1" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_77.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_4" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://dxb-a.wormate.io:32064/wormy" data-room="4ae_v2" data-type="false">
+            <strong>04 &nbsp;QASIM GAMING - tim map</strong>
+          </div>
+          <a href="https://www.tiktok.com/@qasimgamingfb2.0?_t=8lAYlftxJAx&amp;_r=1" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_QASIM.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_5" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://dxb-a.wormate.io:31965/wormy" data-room="5ae_v2" data-type="false">
+            <strong>05 &nbsp;COLL@YT🥶 - tim map</strong>
+          </div>
+          <a href="https://www.tiktok.com/@pindigamingi?_t=8qNR0b929dI&amp;_r=1" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_COLLY.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_6" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://dxb-a.wormate.io:32026/wormy" data-room="6ae_v2" data-type="false">
+            <strong>06 &nbsp;SHERAZ - tim map</strong>
+          </div>
+          <a href="https://www.tiktok.com/@sheraz__saeed?_t=ZS-8vih1QZdmWG&amp;_r=1" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_SHERAZ.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_7" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://dxb-a.wormate.io:32262/wormy" data-room="7ae_v2" data-type="false">
+            <strong>07 &nbsp;JOGOS ALI - tim map</strong>
+          </div>
+          <a href="https://youtube.com/@aligaming_wormateio?si=FqyjYm8V0E24OYcR" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_ALIGAMER.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_8" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://dxb-a.wormate.io:32095/wormy" data-room="8ae_v2" data-type="false">
+            <strong>08 &nbsp;AFG 💀AZIZI 💀YT - tim map</strong>
+          </div>
+          <a href="https://www.tiktok.com/@azizigaming8" target="_blank">
+            <img src="https://asserts.wormorld.io/rooms/TEAM_AZIZI.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+        <div id="wwc_room_item_9" class="server-item">
+          <div class="dropdown-item selecionar-sala-v2" style="cursor: pointer; line-height: 25px" data-con="wss://fra-c.wormate.io:32285/wormy" data-room="9ae_v2" data-type="false">
+            <strong>09 &nbsp;WW - tim map</strong>
+          </div>
+          <a href="https://wormworld.io" target="_blank">
+            <img src="https://i.imgur.com/Udme91r.png" style="width: 25px; vertical-align: middle">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      // تهيئة التبويبات الأولى
+      $("#content-version-1 .angry-grid a").on("click", function (e) {
+        e.preventDefault();
+        const target = $(this).attr("href");
+        $("#content-version-1 .angry-grid a").removeClass("active");
+        $(this).addClass("active");
+        $("#content-version-1 .tab-pane").hide().removeClass("active");
+        $(target).show().addClass("active");
+      });
+
+      // تهيئة التبويبات الثانية
+      $("#content-version-2 .angry-grid a").on("click", function (e) {
+        e.preventDefault();
+        const target = $(this).attr("href");
+        $("#content-version-2 .angry-grid a").removeClass("active");
+        $(this).addClass("active");
+        $("#content-version-2 .tab-pane").hide().removeClass("active");
+        $(target).show().addClass("active");
+      });
+
+      // التبديل بين النسختين
+      $("#version-1-btn").on("click", function () {
+        $(".content-version").removeClass("active").hide();
+        $("#content-version-1").addClass("active").show();
+        $(".version-btn").removeClass("active");
+        $(this).addClass("active");
+      });
+
+      $("#version-2-btn").on("click", function () {
+        $(".content-version").removeClass("active").hide();
+        $("#content-version-2").addClass("active").show();
+        $(".version-btn").removeClass("active");
+        $(this).addClass("active");
+      });
+    });
+  </script>
+   <script type="text/javascript">
+    $("#mm-advice-cont").html(
+      `<div class="wormworld-connect-count-b32" style="display: grid !important; grid-template-columns: 1fr 1fr 1fr;gap: 2px;">
+      <input type="button" value="F.SCREEN" id="btnFullScreen" style="margin-top:5px;width:100%;height: 35px;" />
+      <input type="button" value="RESPAWN" onclick="respawnFn()"
+      style="margin-top:5px;width:100%;background-color:#f7941d;color:#fff;border:0;height:35px;" />
+      <input type="button" value="SKINLAB" onclick="window.location.href='https://wormworld.io/skinlab/'"
+      style="margin-top:5px;width:100%;height: 35px;" />
+    </div>`);
+    const btnFullScreen = document.getElementById("btnFullScreen");
+    if (btnFullScreen) {
+      btnFullScreen.addEventListener("click", function () {
+      if (!document.fullscreenElement) {
+        _wwc.fullscreen = true;
+        if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+        document.documentElement.webkitRequestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) {
+        document.documentElement.mozRequestFullScreen();
+        }
+      } else {
+        _wwc.fullscreen = false;
+        if (document.exitFullscreen) {
+        document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+        }
+      }
+      });
+
+      document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" || e.key === "Esc") {
+        _wwc.fullscreen = false;
+      }
+      });
+
+      document.addEventListener("fullscreenchange", function () {
+      if (!document.fullscreenElement) {
+        _wwc.fullscreen = false;
+      }
+      });
+    }
+  </script>
+  
+</body>
+</html>
